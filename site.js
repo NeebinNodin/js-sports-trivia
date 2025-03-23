@@ -9,7 +9,7 @@ const nextQuestionElement = document.querySelector('#nextQuestion')
 
 	// IIFE (so we can use async/await)
 	; (async () => {
-
+		let correctAnswer
 		// todo: create your "getNextQuestion" function
 		const getNextQuestion = async () => {
 			const response = await fetch('https://opentdb.com/api.php?amount=1&type=multiple')
@@ -27,7 +27,7 @@ const nextQuestionElement = document.querySelector('#nextQuestion')
 			questionElement.textContent = decodeHtml(question)
 			answers.forEach(answer => {
 				const button = document.createElement('button')
-				button.textContent = (answer)
+				button.textContent = decodeHtml(answer)
 
 				button.addEventListener('click', () => {
 					if (answer === correct) {

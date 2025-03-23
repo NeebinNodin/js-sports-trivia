@@ -5,7 +5,7 @@ import { decodeHtml, shuffle } from './utils.js'
 // get the elements from the DOM
 const questionElement = document.querySelector('#question')
 const answersElement = document.querySelector('#answers')
-//const nextQuestionElement = document.querySelector('#nextQuestion')
+const nextQuestionElement = document.querySelector('#nextQuestion')
 
 	// IIFE (so we can use async/await)
 	; (async () => {
@@ -36,18 +36,24 @@ const answersElement = document.querySelector('#answers')
 						alert('Correct!')
 						return
 					}
-					
+
 					button.disabled = true
 					alert('Incorrect!')
-					
+
 				})
 				answersElement.appendChild(button)
 			})
 		}
 		// todo: add the event listener to the "nextQuestion" button
+		nextQuestionElement.addEventListener('click', async () => {
+			renderQuestion(await getNextQuestion())
+			nextQuestionElement.disabled = true
+			setTimeout(() => nextQuestionElement.disabled = false, 10000)
+
+		})
 		//console.log(await getNextQuestion())
 		//renderQuestion(await getNextQuestion())
 	})()
 
 // mimic a click on the "nextQuestion" button to show the first question
-//nextQuestionElement.click()
+nextQuestionElement.click()
